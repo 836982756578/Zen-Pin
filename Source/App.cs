@@ -38,8 +38,10 @@ namespace ZenPin
             if (!createdNew)
             {
                 System.Windows.MessageBox.Show(
-                    "Zen Pin zaten arka planda çalışıyor!\nİstediğiniz bir pencereyi en üstte sabitlemek için Ctrl + Boşluk (Space) tuşlarına basabilirsiniz.\n\nGeliştirici: Serkan ŞENTÜRK",
-                    "Zen Pin - Pencere Sabitleyici",
+                    Lang.T(
+                        "Zen Pin is already running in the background!\nPress Ctrl + Space on any window to pin it on top.\n\nDeveloper: Serkan ŞENTÜRK",
+                        "Zen Pin zaten arka planda çalışıyor!\nİstediğiniz bir pencereyi en üstte sabitlemek için Ctrl + Boşluk (Space) tuşlarına basabilirsiniz.\n\nGeliştirici: Serkan ŞENTÜRK"),
+                    Lang.T("Zen Pin - Window Pinner", "Zen Pin - Pencere Sabitleyici"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 return;
@@ -136,13 +138,13 @@ namespace ZenPin
             {
                 NativeMethods.SetTopMost(hWnd, false);
                 _pinnedWindows.Remove(hWnd);
-                _hud.ShowMessage("🔓 Sabitleme Kaldırıldı: " + title, System.Windows.Media.Color.FromRgb(150, 160, 180));
+                _hud.ShowMessage(Lang.T("🔓 Unpinned: ", "🔓 Sabitleme Kaldırıldı: ") + title, System.Windows.Media.Color.FromRgb(150, 160, 180));
             }
             else
             {
                 NativeMethods.SetTopMost(hWnd, true);
                 _pinnedWindows.Add(hWnd);
-                _hud.ShowMessage("📌 En Üstte Sabitlendi: " + title, System.Windows.Media.Color.FromRgb(255, 90, 100));
+                _hud.ShowMessage(Lang.T("📌 Pinned on Top: ", "📌 En Üstte Sabitlendi: ") + title, System.Windows.Media.Color.FromRgb(255, 90, 100));
             }
 
             NativeMethods.MessageBeep(0);
@@ -166,13 +168,13 @@ namespace ZenPin
             NativeMethods.SetOpacity(hWnd, (byte)newAlpha);
 
             int pct = (int)Math.Round((newAlpha / 255.0) * 100.0);
-            _hud.ShowMessage(string.Format("👁️ Şeffaflık: %{0}", pct), System.Windows.Media.Color.FromRgb(90, 180, 255));
+            _hud.ShowMessage(string.Format(Lang.T("👁️ Opacity: {0}%", "👁️ Şeffaflık: %{0}"), pct), System.Windows.Media.Color.FromRgb(90, 180, 255));
         }
 
         private void SetupTrayIcon()
         {
             _trayIcon = new NotifyIcon();
-            _trayIcon.Text = "Zen Pin - Pencere Sabitleyici | Serkan ŞENTÜRK";
+            _trayIcon.Text = Lang.T("Zen Pin - Window Pinner | Serkan ŞENTÜRK", "Zen Pin - Pencere Sabitleyici | Serkan ŞENTÜRK");
             _trayIcon.Icon = LoadAppIcon();
             _trayIcon.Visible = true;
 
@@ -181,14 +183,19 @@ namespace ZenPin
 
         private void UpdateTrayMenu()
         {
+            if (_trayIcon != null)
+            {
+                _trayIcon.Text = Lang.T("Zen Pin - Window Pinner | Serkan ŞENTÜRK", "Zen Pin - Pencere Sabitleyici | Serkan ŞENTÜRK");
+            }
+
             ContextMenuStrip menu = new ContextMenuStrip();
 
-            ToolStripMenuItem titleItem = new ToolStripMenuItem("☯️ Zen Pin - Pencere Sabitleyici");
+            ToolStripMenuItem titleItem = new ToolStripMenuItem(Lang.T("☯️ Zen Pin - Window Pinner", "☯️ Zen Pin - Pencere Sabitleyici"));
             titleItem.Font = new System.Drawing.Font(titleItem.Font, System.Drawing.FontStyle.Bold);
             titleItem.Enabled = false;
             menu.Items.Add(titleItem);
 
-            ToolStripMenuItem authorItem = new ToolStripMenuItem("👤 Geliştirici: Serkan ŞENTÜRK");
+            ToolStripMenuItem authorItem = new ToolStripMenuItem(Lang.T("👤 Developer: Serkan ŞENTÜRK", "👤 Geliştirici: Serkan ŞENTÜRK"));
             authorItem.Font = new System.Drawing.Font(authorItem.Font.FontFamily, 8.5f, System.Drawing.FontStyle.Italic);
             authorItem.Enabled = false;
             menu.Items.Add(authorItem);
@@ -196,11 +203,11 @@ namespace ZenPin
             menu.Items.Add(new ToolStripSeparator());
 
             // Info items
-            ToolStripMenuItem hotkeyInfo = new ToolStripMenuItem("📌 Sabitle / Çöz: Ctrl + Boşluk (Space)");
+            ToolStripMenuItem hotkeyInfo = new ToolStripMenuItem(Lang.T("📌 Pin / Unpin: Ctrl + Space", "📌 Sabitle / Çöz: Ctrl + Boşluk (Space)"));
             hotkeyInfo.Enabled = false;
             menu.Items.Add(hotkeyInfo);
 
-            ToolStripMenuItem opacityInfo = new ToolStripMenuItem("👁️ Şeffaflık: Ctrl + Alt + Yukarı/Aşağı");
+            ToolStripMenuItem opacityInfo = new ToolStripMenuItem(Lang.T("👁️ Opacity: Ctrl + Alt + Up / Down", "👁️ Şeffaflık: Ctrl + Alt + Yukarı/Aşağı"));
             opacityInfo.Enabled = false;
             menu.Items.Add(opacityInfo);
 
@@ -211,13 +218,13 @@ namespace ZenPin
 
             if (_pinnedWindows.Count > 0)
             {
-                ToolStripMenuItem pinnedListMenu = new ToolStripMenuItem(string.Format("📌 Sabitli Pencereler ({0})", _pinnedWindows.Count));
+                ToolStripMenuItem pinnedListMenu = new ToolStripMenuItem(string.Format(Lang.T("📌 Pinned Windows ({0})", "📌 Sabitli Pencereler ({0})"), _pinnedWindows.Count));
                 foreach (IntPtr h in new List<IntPtr>(_pinnedWindows))
                 {
                     string wTitle = NativeMethods.GetWindowTitle(h);
                     if (wTitle.Length > 24) wTitle = wTitle.Substring(0, 21) + "...";
 
-                    ToolStripMenuItem winItem = new ToolStripMenuItem("• " + wTitle + " (Çöz)");
+                    ToolStripMenuItem winItem = new ToolStripMenuItem("• " + wTitle + Lang.T(" (Unpin)", " (Çöz)"));
                     IntPtr target = h;
                     winItem.Click += (s, e) =>
                     {
@@ -229,7 +236,7 @@ namespace ZenPin
                 }
                 menu.Items.Add(pinnedListMenu);
 
-                ToolStripMenuItem unpinAllItem = new ToolStripMenuItem("🔓 Tüm Sabitlemeleri Kaldır");
+                ToolStripMenuItem unpinAllItem = new ToolStripMenuItem(Lang.T("🔓 Unpin All Windows", "🔓 Tüm Sabitlemeleri Kaldır"));
                 unpinAllItem.Click += (s, e) =>
                 {
                     foreach (IntPtr h in new List<IntPtr>(_pinnedWindows))
@@ -243,14 +250,25 @@ namespace ZenPin
             }
             else
             {
-                ToolStripMenuItem noPinned = new ToolStripMenuItem("Henüz sabitlenmiş pencere yok");
+                ToolStripMenuItem noPinned = new ToolStripMenuItem(Lang.T("No pinned windows yet", "Henüz sabitlenmiş pencere yok"));
                 noPinned.Enabled = false;
                 menu.Items.Add(noPinned);
             }
 
             menu.Items.Add(new ToolStripSeparator());
 
-            ToolStripMenuItem devProfileItem = new ToolStripMenuItem("🌐 Geliştirici Sayfası (GitHub)");
+            ToolStripMenuItem langItem = new ToolStripMenuItem(Lang.T("🌐 Language: EN / TR (Switch to Türkçe)", "🌐 Dil: TR / EN (English'e Geç)"));
+            langItem.Click += (s, e) =>
+            {
+                Lang.Toggle();
+                UpdateTrayMenu();
+                _hud.ShowMessage(Lang.T("🌐 Language: English (EN)", "🌐 Dil: Türkçe (TR)"), System.Windows.Media.Color.FromRgb(100, 210, 160));
+            };
+            menu.Items.Add(langItem);
+
+            menu.Items.Add(new ToolStripSeparator());
+
+            ToolStripMenuItem devProfileItem = new ToolStripMenuItem(Lang.T("🌐 Developer Page (GitHub)", "🌐 Geliştirici Sayfası (GitHub)"));
             devProfileItem.Click += (s, e) =>
             {
                 try { Process.Start(new ProcessStartInfo("https://github.com/836982756578") { UseShellExecute = true }); } catch { }
@@ -264,19 +282,28 @@ namespace ZenPin
             };
             menu.Items.Add(projectRepoItem);
 
-            ToolStripMenuItem aboutItem = new ToolStripMenuItem("ℹ️ Zen Pin Hakkında");
+            ToolStripMenuItem aboutItem = new ToolStripMenuItem(Lang.T("ℹ️ About Zen Pin", "ℹ️ Zen Pin Hakkında"));
             aboutItem.Click += (s, e) =>
             {
                 System.Windows.MessageBox.Show(
-                    "Zen Pin - Pencere Sabitleyici & PiP v1.0.0\n\n" +
-                    "🌟 Geliştirici: Serkan ŞENTÜRK\n" +
-                    "Telif Hakkı: © 2026 Serkan ŞENTÜRK. Tüm Hakları Saklıdır.\n\n" +
-                    "İstediğiniz herhangi bir pencereyi (YouTube, Notlar, Hesap Makinesi, Video) ekranın en üstünde sabitler.\n\n" +
-                    "• Ctrl + Boşluk (Space): En üstte sabitle / Kaldır\n" +
-                    "• Ctrl + Alt + Yukarı/Aşağı: Şeffaflığı artır / azalt\n" +
-                    "• Ultra Hafif (~1 MB RAM) ve Taşınabilir (Zero-Install Portable)\n\n" +
-                    "GitHub: https://github.com/836982756578/Zen-Pin",
-                    "Zen Pin Hakkında",
+                    Lang.T(
+                        "Zen Pin - Window Pinner & PiP v1.1.0\n\n" +
+                        "🌟 Developer: Serkan ŞENTÜRK\n" +
+                        "Copyright: © 2026 Serkan ŞENTÜRK. All Rights Reserved.\n\n" +
+                        "Pin any window (YouTube, Notes, Calculator, Video) on top of all other windows.\n\n" +
+                        "• Ctrl + Space: Pin / Unpin active window on top\n" +
+                        "• Ctrl + Alt + Up / Down: Increase / decrease window opacity\n" +
+                        "• Ultra-lightweight (~1 MB RAM) and Portable (Zero-Install)\n\n" +
+                        "GitHub: https://github.com/836982756578/Zen-Pin",
+                        "Zen Pin - Pencere Sabitleyici & PiP v1.1.0\n\n" +
+                        "🌟 Geliştirici: Serkan ŞENTÜRK\n" +
+                        "Telif Hakkı: © 2026 Serkan ŞENTÜRK. Tüm Hakları Saklıdır.\n\n" +
+                        "İstediğiniz herhangi bir pencereyi (YouTube, Notlar, Hesap Makinesi, Video) ekranın en üstünde sabitler.\n\n" +
+                        "• Ctrl + Boşluk (Space): En üstte sabitle / Kaldır\n" +
+                        "• Ctrl + Alt + Yukarı/Aşağı: Şeffaflığı artır / azalt\n" +
+                        "• Ultra Hafif (~1 MB RAM) ve Taşınabilir (Zero-Install Portable)\n\n" +
+                        "GitHub: https://github.com/836982756578/Zen-Pin"),
+                    Lang.T("About Zen Pin", "Zen Pin Hakkında"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             };
@@ -284,7 +311,7 @@ namespace ZenPin
 
             menu.Items.Add(new ToolStripSeparator());
 
-            ToolStripMenuItem exitItem = new ToolStripMenuItem("🚪 Çıkış");
+            ToolStripMenuItem exitItem = new ToolStripMenuItem(Lang.T("🚪 Exit", "🚪 Çıkış"));
             exitItem.Click += (s, e) => ExitApplication();
             menu.Items.Add(exitItem);
 

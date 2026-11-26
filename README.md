@@ -1,70 +1,64 @@
-# 📌 Zen Pin - Window Pinner & Picture-in-Picture Tool
+<div align="center">
 
-**Developer:** [Serkan ŞENTÜRK](https://github.com/836982756578)  
-**Copyright:** © 2026 Serkan ŞENTÜRK. All Rights Reserved.  
-**License:** MIT  
-**Platform:** Windows 10 / 11 (64-bit & 32-bit Portable)  
+# 📌 Zen Pin
 
-> Pin any window on top of others and turn video players or browser tabs into a Picture-in-Picture floating view.
+**Always-on-Top Window Pinner, Opacity Controller & Picture-in-Picture Tool for Windows**
 
----
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%2F%2011-0078D6?style=for-the-badge&logo=windows)](https://github.com/836982756578/Zen-Pin)
+[![Portable](https://img.shields.io/badge/Distribution-Portable%20.EXE-10B981?style=for-the-badge)](https://github.com/836982756578/Zen-Pin/releases/latest)
+[![Languages](https://img.shields.io/badge/Languages-English%20%7C%20T%C3%BCrk%C3%A7e-8B5CF6?style=for-the-badge)](#key-features)
+[![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/836982756578/Zen-Pin?style=for-the-badge&label=Download%20Latest&color=FF5A64)](https://github.com/836982756578/Zen-Pin/releases/latest)
 
-## 🇬🇧 English Documentation
+<br />
 
-### ✨ Key Features
-* 📌 **Always on Top:** Select any window and press shortcut (Ctrl + Space / custom) to lock it on top.
-* 🖼️ **Picture-in-Picture (PiP):** Shrink documents, terminal windows, or video streams to stay productive while multitasking.
-* 👁️ **Adjustable Transparency:** Make windows semi-transparent so you can work behind them.
-* 🪶 **Zero Installation:** Pure portable single executable.
+<img src="docs/screenshots/showcase.png" alt="Zen Pin Showcase" width="100%" />
 
-### 📥 Download & Usage
-1. Download the latest portable .exe from the [Releases](https://github.com/836982756578/Zen-Pin/releases) section.
-2. Run directly — no installer or administrative privileges required.
-3. Enjoy an ultra-lightweight, native Windows experience!
+</div>
 
 ---
 
-## 🇹🇷 Türkçe Açıklama
+## Overview
 
-# 📌 Zen Pin - Pencere Sabitleyici & PiP (Always on Top)
+**Zen Pin** is a featherweight (~1 MB RAM), zero-install Windows utility that lets you pin any window on top of all others (**Always on Top**) and adjust its transparency on the fly — turning video players, calculators, terminals, or reference docs into effortless floating Picture-in-Picture windows.
 
-**Geliştirici:** [Serkan ŞENTÜRK](https://github.com/836982756578)  
-**Telif Hakkı:** © 2026 Serkan ŞENTÜRK. Tüm Hakları Saklıdır.  
-**Lisans:** MIT  
-**Platform:** Windows 10 / 11 (64-bit & 32-bit)  
+## Key Features
 
----
-
-## 🌟 Zen Pin Nedir?
-**Zen Pin**, Windows üzerinde çalıştığınız sırada istediğiniz herhangi bir pencereyi (YouTube videosu, Not Defteri, Hesap Makinesi, Referans PDF, Canlı Maç / Yayın vb.) ekranın en üstünde sabitlemenizi (Always on Top) sağlayan ultra hafif (~1-2 MB RAM), kurulumsuz (Portable) bir üretkenlik aracıdır.
-
----
-
-## 🚀 Temel Özellikler
-* 📌 **Tek Kısayolla Sabitleme:** Hangi penceredeyseniz **`Ctrl + Boşluk (Space)`** tuşlarına basın; o pencere anında diğer tüm pencerelerin en üstünde kilitlenir.
-* 👁️ **Şeffaflık / Opacity Ayarı:** 
-  * **`Ctrl + Alt + Aşağı Ok`**: Pencere şeffaflığını azaltır (altındaki içerik görünür hale gelir).
-  * **`Ctrl + Alt + Yukarı Ok`**: Pencere opaklığını artırır.
-* 🔔 **Ekran Üstü Modern Bildirim (HUD Pill):** Sabitleme yapıldığında veya şeffaflık değiştiğinde ekranın üstünde modern, animasyonlu bir bildirim hapı belirir.
-* 📋 **Sistem Tepsisi Yönetimi:** Sağ alttaki ☯️ simgesine sağ tıklayarak o an hangi pencerelerin sabit olduğunu görebilir, tek tıkla sabitlemeyi kaldırabilirsiniz.
-* 🪶 **Ultra Hafif:** Çalışırken yalnızca **~1 MB RAM** tüketir.
-
----
-
-## ⌨️ Kısayollar
-| Kısayol | İşlev |
+| Feature | Description |
 | :--- | :--- |
-| **`Ctrl + Boşluk (Space)`** | Aktif pencereyi en üstte sabitle / kaldır |
-| **`Ctrl + Alt + Aşağı Ok`** | Aktif pencerenin şeffaflığını artır |
-| **`Ctrl + Alt + Yukarı Ok`** | Aktif pencerenin şeffaflığını azalt (normal yap) |
+| 📌 **One-Shortcut Window Pinning** | Press `Ctrl + Space` on any active window to lock or unlock it above all other windows. |
+| 👁️ **Live Transparency Control** | Press `Ctrl + Alt + Down` / `Ctrl + Alt + Up` to smoothly adjust any window's opacity from 20% to 100%. |
+| 🔔 **Modern Animated HUD Pill** | Displays a sleek, non-intrusive on-screen pill notification whenever you pin, unpin, or change opacity. |
+| 📋 **System Tray Window Manager** | Right-click the **☯️** tray icon to see all currently pinned windows and unpin individually or all at once. |
+| 🌐 **English & Turkish (EN / TR)** | Built-in bilingual UI and HUD notifications with instant one-click language switching in the tray menu. |
+| 🪶 **Ultra-Lightweight Portable** | Pure standalone `.exe` (~1–2 MB RAM) that cleanly restores all pinned states and opacities on exit. |
 
----
+## Keyboard Shortcuts
 
-## 📥 İndirme ve Çalıştırma
-1. [Releases](https://github.com/836982756578/Zen-Pin/releases) sayfasından **`ZenPin.exe`** dosyasını indirin.
-2. Çift tıklayarak çalıştırın.
-3. Herhangi bir pencereye geçip **`Ctrl + Boşluk`** yapın!
+| Shortcut | Action |
+| :--- | :--- |
+| **`Ctrl + Space`** | Pin / unpin the active window on top |
+| **`Ctrl + Alt + Down Arrow`** | Decrease opacity (make window more transparent) |
+| **`Ctrl + Alt + Up Arrow`** | Increase opacity (restore solid appearance) |
 
----
+## Installation & Usage
 
-*Geliştirici: [Serkan ŞENTÜRK](https://github.com/836982756578)*
+1. Download the latest portable **`ZenPin.exe`** from the [Latest Release](https://github.com/836982756578/Zen-Pin/releases/latest) page.
+2. Double-click `ZenPin.exe` — it starts silently in the system tray (**☯️**).
+3. Focus any window and press **`Ctrl + Space`** to keep it on top!
+4. Right-click the tray icon anytime to manage pinned windows or toggle **🌐 Language: EN / TR**.
+
+## Build from Source
+
+Requires Windows 10/11 with the built-in .NET Framework 4.x C# compiler (`csc.exe`):
+
+```powershell
+git clone https://github.com/836982756578/Zen-Pin.git
+cd Zen-Pin
+.\build.ps1
+```
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).  
+Copyright © 2026 [Serkan ŞENTÜRK](https://github.com/836982756578).

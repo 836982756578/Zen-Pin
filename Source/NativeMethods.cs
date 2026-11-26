@@ -72,7 +72,7 @@ namespace ZenPin
         public static string GetWindowTitle(IntPtr hWnd)
         {
             int len = GetWindowTextLength(hWnd);
-            if (len <= 0) return "Adsız Pencere";
+            if (len <= 0) return Lang.T("Untitled Window", "Adsız Pencere");
 
             StringBuilder sb = new StringBuilder(len + 1);
             GetWindowText(hWnd, sb, sb.Capacity);
